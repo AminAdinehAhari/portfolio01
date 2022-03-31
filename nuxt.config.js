@@ -20,7 +20,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/portfolio01/favicon.ico' }
     ]
   },
 
@@ -30,6 +30,10 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    {src: "@/plugins/labels"},
+    {src: "@/plugins/texts"},
+    {src: "@/plugins/configs"},
+    {src: "@/plugins/files"},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

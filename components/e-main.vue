@@ -1,12 +1,12 @@
 <template>
-    <div>
-        about <nuxt-link to="/">home</nuxt-link>
+    <div class="e-main">
+        <slot></slot>
     </div>
 </template>
 
 <script>
     export default {
-        name: "about"
+        name: "e-main"
     }
 </script>
 
