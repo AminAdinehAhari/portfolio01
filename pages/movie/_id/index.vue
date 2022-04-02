@@ -1,5 +1,5 @@
 <template>
-    <e-row>
+    <e-row class="page-movie-detail">
         <e-col :col="12" class="my-7 bg-f-release-search py-3 px-3 rounded-md flex flex-wrap items-center">
             <nuxt-link to="/"
                        class="flex items-center bg-p-blue px-2 py-1 text-white rounded-3xl cursor-pointer"
@@ -63,7 +63,16 @@
                             </tr>
                             <tr>
                                 <td class="font-bold text-base  leading-10">{{getLabel("SCORE")}}</td>
-                                <td class="text-right">{{movieDetail.vote_average}} ({{movieDetail.vote_count}} {{getLabel('VOTES')}})</td>
+                                <td class="text-right">
+                                    <awesome-vue-star-rating
+                                            :star="movieRate"
+                                            :disabled="true"
+                                            :maxstars="5"
+                                            :starsize="'xs'"
+                                            :hasresults="false"
+                                            :hasdescription="false"
+                                            :ratingdescription="false" />
+                                    {{movieDetail.vote_average}} ({{movieDetail.vote_count}} {{getLabel('VOTES')}})</td>
                             </tr>
                             <tr>
                                 <td class="font-bold text-base  leading-10">{{getLabel("GENRES")}}</td>
@@ -106,6 +115,7 @@
     import FReleaseSearch from "../../../components/f-release-search";
     import saveGenreMovieMixin from "../../../mixins/saveGenreMovieMixin";
     import {creditsMovie, detailMovie} from "../../../api/movie";
+    import AwesomeVueStarRating from 'awesome-vue-star-rating'
 
     export default {
         name: "index",
@@ -116,7 +126,8 @@
             ECol,
             CMove,
             LPagination,
-            FReleaseSearch
+            FReleaseSearch,
+            AwesomeVueStarRating
         },
         mixins: [
             saveGenreMovieMixin
@@ -134,11 +145,29 @@
             }
         },
         computed:{
+            /**
+             * change genres to of array<object> to text
+             * */
             genresText(){
                 return this.movieDetail?.genres.map(it=>it.name).join(" , ")
             },
+
+            /**
+             * provide movie rate for rate component
+             * */
+            movieRate(){
+                let rate = this.movieDetail?.vote_average;
+                if (!!rate){
+                    return Math.floor(rate/2);
+                }else{
+                    return 1;
+                }
+            }
         },
         methods:{
+            /**
+             * 10 popular cast members (sorted by popularity)
+             * */
             setCreditsText(){
                 this.creditsText = this.credits?.cast.sort((a,b)=>{
                     return a.popularity > b.popularity ? -1 : 1;
@@ -147,6 +176,9 @@
                     .map(it=>it.name)
                     .join(" , ")
             },
+            /**
+             * get movie detail
+             * */
             getMovieDetail(){
                 this.loading = true;
 
@@ -163,10 +195,12 @@
                     })
             },
 
+            /**
+             * get credit list
+             * */
             getCredits(){
                 this.$service(creditsMovie, {route: {id:this.movieId}})
                     .then((res) => {
-                        console.log(res.data)
                         this.credits = res.data;
                         this.setCreditsText()
                     })
@@ -187,6 +221,6 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss">
 
 </style>

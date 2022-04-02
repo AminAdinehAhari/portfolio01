@@ -46,6 +46,17 @@
         components: {
             DateRangePicker
         },
+        props: {
+            init: {
+                type: Object,
+                default: function () {
+                    return {
+                        startDate: null,
+                        endDate: null
+                    };
+                }
+            }
+        },
         data() {
             return {
                 dateRange: {
@@ -79,6 +90,12 @@
                     startDateFormat: this.dateFormat(this.dateRange.startDate),
                     endDateFormat: this.dateFormat(this.dateRange.endDate)
                 })
+            }
+        },
+        mounted() {
+            this.dateRange = {
+                startDate: this.init?.startDate,
+                endDate: this.init?.endDate
             }
         }
     }

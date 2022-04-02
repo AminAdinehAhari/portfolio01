@@ -1,0 +1,28 @@
+$rate-color:#f3d23e;
+
+.page-movie-detail {
+  .nostar_desc {
+    display: none;
+  }
+
+
+  .star {
+    color: $rate-color;
+  }
+
+  .star.active {
+    color: $rate-color;
+  }
+
+  .list, .list.disabled {
+    &:hover {
+      .star {
+        color: $rate-color !important;
+      }
+
+      .star.active {
+        color: red;
+      }
+    }
+  }
+}

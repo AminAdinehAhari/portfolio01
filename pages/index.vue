@@ -1,7 +1,7 @@
 <template>
     <e-row>
         <e-col :col="12" class="my-7 bg-f-release-search py-3 px-3 rounded-md">
-            <f-release-search @submit="searchByRelease"/>
+            <f-release-search :init="releaseDate" @submit="searchByRelease"/>
         </e-col>
         <e-col :col="12" v-show="loading">
             <e-row justify="center" align="middle">
@@ -73,6 +73,14 @@
             }
         },
         methods: {
+            /**
+             *  1- provide search param
+             *  2- save search param in store
+             *  3- connect to api
+             *  4- update page state
+             *  5- save page total in store
+             *  6- check error connection
+             */
             getMovieList() {
                 this.loading = true;
                 let params = {};
@@ -83,12 +91,17 @@
                     params['release_date.lte'] = this.releaseDate.endDateFormat.replace(/\//g, '-').split("-").reverse().join("-");
                 }
 
+                this.$store.commit("state/home_page/setResultPage", this.resultPage);
+                this.$store.commit("state/home_page/setReleaseDate", this.releaseDate);
+
                 this.$service(discoverMovie, {params: params})
                     .then((res) => {
                         this.resultTotalPage = res?.data?.total_pages;
                         if (!!!this.resultTotalPage) {
                             this.resultTotalPage = 1;
                         }
+                        this.$store.commit("state/home_page/setResultTotalPage", this.resultTotalPage);
+
 
                         this.resultList = res?.data?.results;
                         if (!!!this.resultList) {
@@ -106,6 +119,9 @@
                     })
             },
 
+            /**
+             * save releaseDate and change page to first page , get movie list
+             */
             searchByRelease(date) {
                 this.releaseDate = date;
                 if (this.resultPage > 1) {
@@ -114,19 +130,35 @@
                     this.resultPage = 1;
                     this.getMovieList();
                 }
-
             }
 
         },
         watch: {
+            /** change page state get movie list
+             * @param nv - new state
+             */
             resultPage(nv) {
                 this.getMovieList();
             }
         },
+        /**
+         * get and save genre movie list in store ,
+         * update state by store (spa redirect , fix page search and page)
+         */
         created() {
             this.saveGenreMovieList();
             this.loading = true;
+
+            const rd = this.$store.state.state.home_page.releaseDate;
+            const rtp = this.$store.state.state.home_page.resultTotalPage;
+            const rp = this.$store.state.state.home_page.resultPage;
+            this.releaseDate = rd;
+            this.resultTotalPage = rtp;
+            this.resultPage = rp;
         },
+        /**
+         * get all movie list
+         */
         mounted() {
             this.getMovieList();
         }
