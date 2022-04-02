@@ -62,7 +62,7 @@ export default {
         postcss: {
             plugins: {
                 'postcss-import': {},
-                tailwindcss: path.resolve(__dirname, './tailwind.config.js'),
+                tailwindcss: './tailwind.config.js',
                 'postcss-nested': {}
             }
         },
