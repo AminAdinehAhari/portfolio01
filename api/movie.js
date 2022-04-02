@@ -3,7 +3,7 @@ import {configsModule} from "../modules/configs";
 
 
 //---------------------------------------------------------------
-// DiscoverMovie Service   --------------------------------------
+// Discover Movie Service   -------------------------------------
 //---------------------------------------------------------------
 const discoverMovie = {
 
@@ -36,7 +36,66 @@ const discoverMovie = {
 
 
 
+//---------------------------------------------------------------
+// Detail Movie Service   ---------------------------------------
+//---------------------------------------------------------------
+const detailMovie = {
+
+    path: "movie/detailMovie",
+
+    connection: defaultConnection,
+
+    /**
+     * Get the primary information about a movie.
+     * @param axios
+     * @param {{route: {id: number}}} option
+     * @returns {*}
+     */
+    api: (axios, option) => {
+
+        let params = {
+            "api_key":configsModule.getConfig("SERVICE_API_KEY_V3"),
+            "language":"en-US"
+        };
+
+        return axios.get(`/3/movie/${option?.route?.id}`,{params:{...params}});
+    },
+
+};
+
+
+//---------------------------------------------------------------
+// Credits Movie Service   ---------------------------------------
+//---------------------------------------------------------------
+const creditsMovie = {
+
+    path: "movie/creditsMovie",
+
+    connection: defaultConnection,
+
+    /**
+     * Get the cast and crew for a movie.
+     * @param axios
+     * @param {{route: {id: number}}} option
+     * @returns {*}
+     */
+    api: (axios, option) => {
+
+        let params = {
+            "api_key":configsModule.getConfig("SERVICE_API_KEY_V3"),
+            "language":"en-US"
+        };
+
+        return axios.get(`3/movie/${option?.route?.id}/credits`,{params:{...params}});
+    },
+
+};
+
+
+
 
 export {
-    discoverMovie
+    discoverMovie,
+    detailMovie,
+    creditsMovie
 }

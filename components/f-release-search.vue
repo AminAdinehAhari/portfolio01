@@ -80,11 +80,6 @@
                     endDateFormat: this.dateFormat(this.dateRange.endDate)
                 })
             }
-        },
-        watch: {
-            dateRange(nv) {
-                console.log(nv);
-            }
         }
     }
 </script>
