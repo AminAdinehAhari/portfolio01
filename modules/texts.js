@@ -24,7 +24,7 @@ const textsModule =  {
                 let lb = label[i].substr(1);
                 text = text.replace(reg,wrapper(labelsModule.getLabel(lb),lb));
             }else{
-                text = text.replace(reg,wrapper(labelsModule.getLabel(i),i));
+                text = text.replace(reg,wrapper(label[i],i));
             }
         }
         return text;
