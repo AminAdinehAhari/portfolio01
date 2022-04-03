@@ -1,5 +1,3 @@
-const tailwindOption = require('./tailwind.config');
-
 
 export default {
     // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -30,7 +28,8 @@ export default {
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: [
         '~/assets/scss/main.scss',
-        '~/node_modules/vue2-daterange-picker/dist/vue2-daterange-picker.css'
+        '~/node_modules/vue2-daterange-picker/dist/vue2-daterange-picker.css',
+        '~/assets/css/tailwind.css'
     ],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -51,7 +50,14 @@ export default {
         '@nuxtjs/tailwindcss'
     ],
 
-    tailwindcss: tailwindOption,
+    tailwindcss: {
+        cssPath: '~/assets/css/tailwind.css',
+        configPath: 'tailwind.config.js',
+        exposeConfig: true,
+        config: {},
+        injectPosition: 0,
+        viewer: true,
+    },
 
 
     // Modules: https://go.nuxtjs.dev/config-modules
@@ -62,7 +68,7 @@ export default {
         postcss: {
             plugins: {
                 'postcss-import': {},
-                tailwindcss: './tailwind.config.js',
+                'tailwindcss': 'tailwind.config.js',
                 'postcss-nested': {}
             }
         },

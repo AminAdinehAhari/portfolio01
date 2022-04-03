@@ -1,0 +1,64 @@
+$ratio1to12: 8.33333333333333333333333333333333%;
+
+@for $i from 1 through 12 {
+  .flex-col-#{$i} {
+    flex: 0 0 #{$i*$ratio1to12};
+  }
+
+  .max-w-col-#{$i} {
+    max-width: #{$i*$ratio1to12};
+  }
+
+
+  @media (min-width: 768px) {
+    .md\:flex-col-#{$i} {
+      flex: 0 0 #{$i*$ratio1to12} !important;
+    }
+
+    .md\:max-w-col-#{$i} {
+      max-width: #{$i*$ratio1to12} !important;
+    }
+  }
+
+}
+
+
+.w-1024 {
+  width: 1030px;
+}
+
+.w-c-move {
+  width: 300px;
+}
+
+
+.h-48 {
+  height: 48px;
+}
+
+.min-h-c-move {
+  min-height: 215px;
+}
+
+.rounded-c-move {
+  border-radius: 6px;
+}
+
+
+.max-h-fit {
+  max-height: fit-content;
+}
+
+.h-fit {
+  height: fit-content;
+}
+
+.flex-col {
+  flex-direction: column
+}
+
+;
+
+@media (min-width: 768px) {
+
+}

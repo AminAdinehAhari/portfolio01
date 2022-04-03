@@ -9,14 +9,14 @@
                     >
                 </e-col>
                 <e-col :col="7" class="p-2 h-full">
-                    <e-row direction="col h-full">
+                    <e-row direction="col" class="h-full" >
                         <h2 class="font-sans flex-1 w-full mb-auto font-bold text-base text-black">{{item.title}}</h2>
 
-                        <e-row class="max-h-7" align="center">
+                        <e-row class="max-h-4 h-4 mt-auto mb-3" align="center">
                             <img src="@/assets/icons/calender.svg" alt="calender" class="mr-1 max-h-5"/>
                             <span class="font-normal text-xs">{{item.release_date}}</span>
                         </e-row>
-                        <e-row class="max-h-fit flex-initial text-justify">
+                        <e-row class="max-h-fit h-fit flex-initial text-justify my-0">
                             <span class="font-normal text-xs mr-2" v-for="(genre,index) in genres" :key="`genre-${index}`">
                                 {{genre}}
                                 <span class="w-1 h-1 min-w-1 min-h-1 my-auto bg-black inline-block rounded-full"></span>
